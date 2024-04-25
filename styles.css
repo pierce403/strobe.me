@@ -23,6 +23,13 @@ body, html {
   #toggleStrobe {
     padding: 12px 24px; /* Increase padding for easier tapping */
     font-size: 18px; /* Increase font size for better readability */
+    background-color: #FFF; /* Ensure high contrast for visibility */
+    color: #000; /* Ensure text is visible against light background */
+    border: 2px solid #000; /* Add border to make the button stand out */
+    display: block; /* Ensure the button is not accidentally hidden */
+    margin: 0 auto; /* Center the button horizontally */
+    width: 60%; /* Make the button wider to catch attention */
+    max-width: 300px; /* Limit maximum width for very wide screens */
   }
 }
 
