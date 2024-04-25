@@ -12,3 +12,27 @@ body, html {
   width: 100vw;
   height: 100vh;
 }
+
+/* Responsive design adjustments for mobile devices */
+@media (max-width: 600px) {
+  #colorPicker, #colorPicker2, #frequencySlider .noUi-target {
+    width: 80vw; /* Adjust width to ensure visibility on smaller screens */
+    margin: 20px auto; /* Increase margin for better touch interaction */
+  }
+
+  #toggleStrobe {
+    padding: 12px 24px; /* Increase padding for easier tapping */
+    font-size: 18px; /* Increase font size for better readability */
+  }
+}
+
+/* Enhancements for touch targets and spacing */
+#colorPicker, #colorPicker2 {
+  height: 44px; /* Increase height for easier interaction */
+  cursor: pointer; /* Indicate these are interactive elements */
+}
+
+#frequencySlider .noUi-target {
+  height: 44px; /* Increase height for easier interaction */
+  margin-top: 20px; /* Add more space above the slider for easier access */
+}
