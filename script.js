@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleStrobeButton = document.getElementById('toggleStrobe');
     const colorPickerElement = document.getElementById('colorPicker');
+    const colorPickerElement2 = document.getElementById('colorPicker2');
     const frequencySliderElement = document.getElementById('frequencySlider');
     let isStrobing = false;
     let strobeInterval;
-    let strobeColors = ['#FF0000']; // Initialize with a default color
+    let strobeColors = ['#FF0000', '#0000FF']; // Initialize with default colors
     let currentColorIndex = 0;
+    let frequency = 1; // Default frequency
 
     // Initialize frequency slider
     noUiSlider.create(frequencySliderElement, {
@@ -13,8 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
         step: 1,
         range: {
             'min': [1],
-            'max': [10]
+            'max': [65]
         }
+    });
+
+    frequencySliderElement.noUiSlider.on('update', function (values, handle) {
+        frequency = values[handle];
+        if (isStrobing) {
+            clearInterval(strobeInterval);
+            startStrobe();
+        }
+        console.log(`Frequency updated to: ${frequency} Hz`);
     });
 
     // Toggle strobe effect
@@ -30,20 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add color to strobe effect
+    // Add color to strobe effect from the first color picker
     colorPickerElement.addEventListener('change', () => {
-        const newColor = colorPickerElement.value;
-        if (!strobeColors.includes(newColor)) {
-            strobeColors.push(newColor);
-            console.log("Added new color to strobe effect:", newColor);
-        }
+        strobeColors[0] = colorPickerElement.value;
+        console.log("Updated color 1 for strobe effect:", colorPickerElement.value);
+    });
+
+    // Add color to strobe effect from the second color picker
+    colorPickerElement2.addEventListener('change', () => {
+        strobeColors[1] = colorPickerElement2.value;
+        console.log("Updated color 2 for strobe effect:", colorPickerElement2.value);
     });
 
     // Start strobe effect
     function startStrobe() {
-        const frequency = frequencySliderElement.noUiSlider.get();
-        const intervalTime = 1000 / frequency;
+        const intervalTime = Math.max(1000 / frequency, 10); // Ensure interval time does not fall below 10ms
         
+        console.log(`Strobe frequency set to ${frequency} Hz, interval time: ${intervalTime} ms.`);
+
         strobeInterval = setInterval(() => {
             if (currentColorIndex >= strobeColors.length) {
                 currentColorIndex = 0; // Reset index if it exceeds the array length
